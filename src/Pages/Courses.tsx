@@ -1,14 +1,16 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 interface CourseLevel {
 	title: string;
 	topics: string[];
+	link: string;
 	price: string;
 }
 
 const courseLevels: CourseLevel[] = [
 	{
-		title: "Kindergarten",
+		title: "Beginner",
 		topics: [
 			"Introduction to Blockchain Technology",
 			"Understanding Cryptocurrencies",
@@ -16,6 +18,7 @@ const courseLevels: CourseLevel[] = [
 			"Fundamental Analysis in Crypto",
 			"Introduction to Risk Management"
 		],
+		link: "/beginners",
 		price: "Free"
 	},
 	{
@@ -27,6 +30,7 @@ const courseLevels: CourseLevel[] = [
 			"DeFi (Decentralized Finance) Basics",
 			"Regulatory Landscape"
 		],
+		link: "/intermediate",
 		price: "Free"
 	},
 	{
@@ -38,6 +42,7 @@ const courseLevels: CourseLevel[] = [
 			"Risk Management Strategies for Traders",
 			"Emerging Trends in Blockchain and Crypto"
 		],
+		link: "/pro",
 		price: "Free"
 	},
 	{
@@ -49,11 +54,12 @@ const courseLevels: CourseLevel[] = [
 			"Risk Management Strategies for Traders",
 			"Emerging Trends in Blockchain and Crypto"
 		],
+		link: "/super-pro",
 		price: "Free"
 	}
 ];
 
-const CourseCard: React.FC<CourseLevel> = ({ title, topics, price }) => (
+const CourseCard: React.FC<CourseLevel> = ({ title, topics, link, price }) => (
 	<div className="bg-white p-6 rounded-lg shadow-md">
 		<h3 className="text-xl font-bold mb-4">{title}</h3>
 		<ul className="mb-4">
@@ -63,9 +69,12 @@ const CourseCard: React.FC<CourseLevel> = ({ title, topics, price }) => (
 				</li>
 			))}
 		</ul>
-		<button className="bg-blue-500 text-white px-4 py-2 rounded-md mb-2 w-full">
+		<Link
+			to={link}
+			className="bg-blue-500 text-white px-4 py-2 rounded-md mb-2 w-full"
+		>
 			Get Started
-		</button>
+		</Link>
 		<p className="text-center">{price}</p>
 	</div>
 );

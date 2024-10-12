@@ -1,12 +1,11 @@
-import React from "react";
-
 export default function Tools() {
 	const tradingTools = [
 		"Call channels",
 		"Degen trading bot",
 		"Degen trading Website",
 		"Adult Security bots",
-		"Private call channels"
+		"Private call channels",
+		"ASK AI"
 	];
 
 	return (
