@@ -1,3 +1,4 @@
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -40,6 +41,7 @@ const Menu: React.FC = () => {
 						Community
 					</Link>
 				</div>
+				<ConnectButton />
 			</div>
 		</nav>
 	);
