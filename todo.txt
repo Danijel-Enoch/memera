@@ -1,0 +1,6 @@
+1. save user data in local storage
+2. user can not go to exam page if they have not completed the course and connected wallet
+3. min certificate page
+3. user can not mint certificate if they have not completed the course and passed above average and connected wallet
+4. study materials page
+5. AI tutor page

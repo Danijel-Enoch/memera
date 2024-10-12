@@ -1,21 +1,40 @@
 import React, { useState } from "react";
+import { saveExamResult } from "../utils/localStorage";
+import { useLanguage } from "../contexts/LanguageContext";
 
 interface Question {
 	id: number;
-	text: string;
-	options: string[];
+	text: {
+		en: string;
+		sw: string;
+		es: string;
+		hi: string;
+	};
+	options: {
+		en: string[];
+		sw: string[];
+		es: string[];
+		hi: string[];
+	};
 	correctAnswer: number;
 }
 
 interface ExamProps {
-	title: string;
+	title: {
+		en: string;
+		sw: string;
+		es: string;
+		hi: string;
+	};
 	questions: Question[];
+	examType: string;
 }
 
-const Exam: React.FC<ExamProps> = ({ title, questions }) => {
+const Exam: React.FC<ExamProps> = ({ title, questions, examType }) => {
 	const [currentQuestion, setCurrentQuestion] = useState(0);
 	const [userAnswers, setUserAnswers] = useState<number[]>([]);
 	const [showScore, setShowScore] = useState(false);
+	const { language } = useLanguage();
 
 	const handleAnswerClick = (selectedAnswer: number) => {
 		const newAnswers = [...userAnswers, selectedAnswer];
@@ -25,6 +44,13 @@ const Exam: React.FC<ExamProps> = ({ title, questions }) => {
 			setCurrentQuestion(currentQuestion + 1);
 		} else {
 			setShowScore(true);
+			const score = calculateScore();
+			saveExamResult({
+				examType,
+				score,
+				totalQuestions: questions.length,
+				date: new Date().toISOString()
+			});
 		}
 	};
 
@@ -64,14 +90,14 @@ const Exam: React.FC<ExamProps> = ({ title, questions }) => {
 
 	return (
 		<div className="container mx-auto px-4 py-8">
-			<h1 className="text-3xl font-bold mb-6">{title}</h1>
+			<h1 className="text-3xl font-bold mb-6">{title[language]}</h1>
 			<div className="bg-white shadow-md rounded-lg p-6">
 				<h2 className="text-xl font-semibold mb-4">
 					Question {currentQuestion + 1} of {questions.length}
 				</h2>
-				<p className="text-lg mb-4">{question.text}</p>
+				<p className="text-lg mb-4">{question.text[language]}</p>
 				<div className="space-y-2">
-					{question.options.map((option, index) => (
+					{question.options[language].map((option, index) => (
 						<button
 							key={index}
 							onClick={() => handleAnswerClick(index)}

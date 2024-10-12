@@ -14,6 +14,8 @@ import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { WagmiProvider } from "wagmi";
 import { mainnet, polygon, optimism, arbitrum, base } from "wagmi/chains";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { LanguageProvider } from "./contexts/LanguageContext";
+import GetCertificatePage from "./Pages/getCertificatePage";
 
 const config = getDefaultConfig({
 	appName: "My RainbowKit App",
@@ -31,28 +33,37 @@ function App() {
 			<WagmiProvider config={config}>
 				<QueryClientProvider client={queryClient}>
 					<RainbowKitProvider>
-						{location.pathname !== "/" && <Menu />}
-						<Routes>
-							<Route path="/" element={<Home />} />
-							<Route path="/courses" element={<Courses />} />
-							<Route path="/tools" element={<Tools />} />
-							<Route path="/beginners" element={<Beginners />} />
-							<Route
-								path="/intermediate"
-								element={<Intermediate />}
-							/>
-							<Route path="/pro" element={<Pro />} />
-							<Route
-								path="/beginner-exam"
-								element={<BeginnerExam />}
-							/>
-							<Route
-								path="/intermediate-exam"
-								element={<IntermediateExam />}
-							/>
-							<Route path="/pro-exam" element={<ProExam />} />
-							{/* Add other routes here */}
-						</Routes>
+						<LanguageProvider>
+							{location.pathname !== "/" && <Menu />}
+							<Routes>
+								<Route path="/" element={<Home />} />
+								<Route path="/courses" element={<Courses />} />
+								<Route path="/tools" element={<Tools />} />
+								<Route
+									path="/beginners"
+									element={<Beginners />}
+								/>
+								<Route
+									path="/intermediate"
+									element={<Intermediate />}
+								/>
+								<Route path="/pro" element={<Pro />} />
+								<Route
+									path="/beginner-exam"
+									element={<BeginnerExam />}
+								/>
+								<Route
+									path="/intermediate-exam"
+									element={<IntermediateExam />}
+								/>
+								<Route path="/pro-exam" element={<ProExam />} />
+								<Route
+									path="/get-certified"
+									element={<GetCertificatePage />}
+								/>
+								{/* Add other routes here */}
+							</Routes>
+						</LanguageProvider>
 					</RainbowKitProvider>
 				</QueryClientProvider>
 			</WagmiProvider>

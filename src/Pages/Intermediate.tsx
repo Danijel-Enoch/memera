@@ -82,8 +82,29 @@ export default function Intermediate() {
 			{intermediateContent.map((section, index) => (
 				<LearningSection
 					key={index}
-					title={section.title}
-					content={section.content}
+					title={{
+						en: section.title,
+						sw: section.title,
+						es: section.title,
+						hi: section.title
+					}}
+					content={section.content.map((item) => ({
+						...item,
+						title: {
+							en: item.title,
+							sw: item.title,
+							es: item.title,
+							hi: item.title
+						},
+						description: {
+							en: item.description,
+							sw: item.description,
+							es: item.description,
+							hi: item.description
+						}
+					}))}
+					courseName={"gg"}
+					sectionIndex={0}
 				/>
 			))}
 

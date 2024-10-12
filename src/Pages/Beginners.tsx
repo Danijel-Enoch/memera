@@ -13,17 +13,19 @@ const beginnerContent: Section[] = [
 			{
 				title: "What is blockchain?",
 				description:
-					"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae sollicitudin sem vel sed ipsum."
+					"Blockchain is a decentralized digital ledger technology that records transactions across multiple computers. Unlike traditional centralized databases, blockchain ensures that the data cannot be altered retroactively without the alteration of all subsequent blocks, ensuring data integrity and security.\n"
 			},
 			{
 				title: "How does it work?",
 				description:
-					"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae sollicitudin sem vel sed ipsum."
+					"A blockchain consists of a series of blocks, each containing a list of transactions. These blocks are linked together using cryptographic hashes. When a new transaction occurs, it's verified by a network of nodes (computers) and added to a new block. This block is then added to the chain, making the transaction permanent and transparent."
 			},
 			{
 				title: "Key Features: decentralization, transparency, immutability",
 				description:
-					"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae sollicitudin sem vel sed ipsum."
+					"Decentralization: Eliminates the need for intermediaries, reducing costs and increasing efficiency.\n" +
+					"Transparency: All participants can see all transactions, promoting trust and accountability.\n" +
+					"Immutability: Once a transaction is recorded, it cannot be altered retroactively, ensuring data integrity and preventing tampering."
 			}
 		]
 	},
@@ -33,7 +35,7 @@ const beginnerContent: Section[] = [
 			{
 				title: "What are cryptocurrencies?",
 				description:
-					"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae sollicitudin sem vel sed ipsum."
+					"Cryptocurrencies are digital or virtual currencies that use cryptography for security. They operate on blockchain technology, enabling peer-to-peer transactions without the need for intermediaries like banks"
 			},
 			{
 				title: "How are cryptocurrencies created?",
@@ -82,8 +84,29 @@ export default function Beginners() {
 			{beginnerContent.map((section, index) => (
 				<LearningSection
 					key={index}
-					title={section.title}
-					content={section.content}
+					title={{
+						en: section.title,
+						sw: section.title,
+						es: section.title,
+						hi: section.title
+					}}
+					content={section.content.map((item) => ({
+						...item,
+						title: {
+							en: item.title,
+							sw: item.title,
+							es: item.title,
+							hi: item.title
+						},
+						description: {
+							en: item.description,
+							sw: item.description,
+							es: item.description,
+							hi: item.description
+						}
+					}))}
+					courseName="beginners"
+					sectionIndex={index}
 				/>
 			))}
 
