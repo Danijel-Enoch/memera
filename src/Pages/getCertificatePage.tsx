@@ -1,14 +1,61 @@
+import {
+	useChainId,
+	usePublicClient,
+	useAccount,
+	useWriteContract,
+	useClient
+} from "wagmi";
+import { createCollectorClient } from "@zoralabs/protocol-sdk";
+import { useEffect } from "react";
 function GetCertificatePage() {
+	const { address } = useAccount();
+	const client = useClient();
+	const chainId = useChainId();
+	const publicClient = usePublicClient();
+	const collectorClient = createCollectorClient({
+		chainId,
+		publicClient: publicClient as any
+	});
+	const { writeContract, isSuccess, isError } = useWriteContract();
+
 	const mintCertificate = async (
 		certificateType: "beginner" | "intermediate" | "pro"
 	) => {
 		try {
-			alert(`${certificateType} certificate minted successfully!`);
+			if (!address) {
+				throw new Error("No wallet connected");
+			} else {
+				const { parameters } = await collectorClient.mint({
+					// collection address to mint
+					tokenContract: "0x1e1d46e01899e541a329d1ff391922767ab01801",
+					// quantity of tokens to mint
+					quantityToMint: 1,
+					minterAccount: address,
+					tokenId:
+						certificateType === "beginner"
+							? 1
+							: certificateType === "intermediate"
+							? 2
+							: 3,
+					// can be set to 1155, 721, or premint
+					mintType: "1155"
+				});
+
+				writeContract(parameters);
+			}
 		} catch (error) {
 			console.error("Failed to mint certificate:", error);
 			alert("Minting failed!");
 		}
 	};
+	useEffect(() => {
+		if (isSuccess) {
+			alert("Certificate minted successfully!");
+		}
+		if (isError) {
+			alert("Minting failed!");
+		}
+	}, [isSuccess, isError]);
 
 	return (
 		<div className="flex flex-col items-center justify-center min-h-screen">
@@ -32,7 +79,7 @@ function GetCertificatePage() {
 				{/* Intermediate Certificate */}
 				<div className="flex flex-col items-center gap-4">
 					<img
-						src="https://res.cloudinary.com/dwdxlzwcs/image/upload/v1728750481/Memera_Academy_l0v8yt.png"
+						src="https://res.cloudinary.com/dwdxlzwcs/image/upload/v1728750483/Memera_Academy_1_fcwnmm.jpg"
 						alt="Intermediate Certificate"
 						className="w-60 h-auto"
 					/>
