@@ -1,7 +1,7 @@
 import React from "react";
 import Exam from "../components/Exam";
 
-const beginnerQuestions = [
+const proQuestions = [
 	{
 		id: 1,
 		text: "What is blockchain?",
@@ -30,15 +30,9 @@ const beginnerQuestions = [
 		options: ["Ethereum", "Litecoin", "Bitcoin", "Dogecoin"],
 		correctAnswer: 2
 	}
-	// Add 17 more questions here following the same structure
-	// ...
+	// Define intermediate-level questions here
 ];
 
-export default function BeginnerExam() {
-	return (
-		<Exam
-			title="Beginner's Blockchain Quiz"
-			questions={beginnerQuestions}
-		/>
-	);
+export default function ProExam() {
+	return <Exam title="Pro Blockchain Quiz" questions={proQuestions} />;
 }
